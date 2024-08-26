@@ -25,24 +25,23 @@ erDiagram
         varChar Descripcion
     }
 
-    PedidoxProducto{
-        int Id_Pedido FK, PK
-        int Id_Producto FK, PK
-        int Cantidad
-    }
+    
 
     Jugador{
         int Id_Jugador PK
-        int Numero_fila FK, PK
-        int Puntos_Realizados
+        int Id_Partida FK, PK
+        varChar Nombre_Jugador
+        int Orden 
+        
     }
 
     Partida{
         int Id_Partida PK
         int Id_Pista FK
         int Id_reserva FK
-        int Jugadores FK
+        
         varChar Estado FK
+        
     }
 
     Estado_Partida{
@@ -50,27 +49,23 @@ erDiagram
         varChar Descripcion
     }
 
-    Fila{
-        int Numero_fila PK
-        varChar Detalles
-    }
+    
 
     Turno{
         int Numero_Turno PK
-        varChar Detalles
-        
+    
+        int Id_Partida fk,Pk
+        varChar Orden
+        boolean Ultimo_turno
     }
 
-    TiradaxTurno{
-        int Tirada FK, PK
-        int Turno FK, PK
-        Date FechaHora_Inicio
-        Date FechaHora_Fin
-    }
+    
 
     Tirada{
         int Numero_tirada PK
         int Pinos_Derribados
+        int Orden
+        
     }
 
     
@@ -103,7 +98,11 @@ erDiagram
     }
 
     
-
+    PedidoxProducto{
+        int Id_Pedido FK, PK
+        int Id_Producto FK, PK
+        int Cantidad
+    }
     
 
     Producto{
@@ -125,6 +124,12 @@ erDiagram
 
     Cliente||--|{Reserva : hace
 
+    Pedido}|--||Estado_Pedido : tiene
+
+    Pedido||--|{PedidoxProducto : tiene
+
+    Producto||--|{PedidoxProducto : tiene
+
 
     Reserva}|--||Historial_Estado : tiene
     Historial_Estado||--|{Estado_Reserva : tiene
@@ -141,21 +146,23 @@ erDiagram
 
     Partida}|--||Estado_Partida : tiene
 
-    Partida||--|{Fila : tiene
+    
 
-    Fila}|--||Turno : tiene
+    Jugador||--|{Tirada : tiene
 
-    Turno||--|{TiradaxTurno : " 2 por turno"
+    Turno||--|{Tirada : " 2 por turno"
 
-    TiradaxTurno}|--||Tirada : "2 x turno"
+    Partida||--|{Turno : tiene
 
-    PedidoxProducto}|--||Producto : tiene
+    
+    
 
    
 
     Partida||--|{Jugador : " la juegan"
 
-    Jugador||--|{Fila : tiene
+
+    
 
     Reserva||--|{Pedido : "se registra"
 
@@ -163,6 +170,6 @@ erDiagram
 
     
 
-    Pedido}|--||Estado_Pedido : tiene
+    
 
-    Pedido||--|{PedidoxProducto : tiene
+    
