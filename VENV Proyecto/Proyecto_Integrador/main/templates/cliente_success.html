@@ -1,0 +1,9 @@
+
+{% extends "test.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>¡Cliente registrado con éxito!</h2>
+    <a href="{% url 'cliente_add' %}" class="btn btn-success">Registrar otro cliente</a>
+</div>
+{% endblock %}
